@@ -1,5 +1,7 @@
+import { JWTBlacklistPrefix } from "./../constants/redisPrefixes";
 import { User } from "../../entity/User";
 import { sign, verify } from "jsonwebtoken";
+import { redis } from "../../redis";
 
 export let ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET!;
 
@@ -23,4 +25,29 @@ export const verifyJWT = async (token: string) => {
 
     // @ts-ignore
     return payload.userId;
+};
+
+export const addTokenToBlacklist = async (token: string) => {
+    const verify = await verifyJWT(token);
+
+    if (verify === null) {
+        return null;
+    }
+
+    await redis.set(JWTBlacklistPrefix + token, "blacklist");
+    return true;
+};
+
+export const checkIfTokenIsInBlacklist = async (token: string) => {
+    const verify = await verifyJWT(token);
+
+    if (verify === null) {
+        return null;
+    }
+
+    const found = await redis.get(JWTBlacklistPrefix + token);
+
+    if (found) return true;
+
+    return false;
 };

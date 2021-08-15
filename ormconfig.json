@@ -1,0 +1,10 @@
+{
+    "name": "default",
+    "type": "mongodb",
+    "host": "localhost",
+    "port": 27017,
+    "database": "type-graphql-test",
+    "synchronize": true,
+    "logging": true,
+    "entities": ["src/entity/*.*"]
+}

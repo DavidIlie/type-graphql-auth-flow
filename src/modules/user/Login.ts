@@ -9,8 +9,7 @@ import { MyContext } from "src/types/MyContext";
 @Resolver()
 export class LoginResolver {
     @Mutation(() => User, {
-        description: "login to your account",
-        nullable: true,
+        description: "login to account",
     })
     async login(
         @Arg("data") { email, password }: LoginInput,

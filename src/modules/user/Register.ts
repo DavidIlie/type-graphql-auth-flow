@@ -8,7 +8,7 @@ import { createConfirmationUrl } from "../utils/createConfirmationUrl";
 
 @Resolver()
 export class RegisterResolver {
-    @Mutation(() => User, { description: "register an account" })
+    @Mutation(() => User, { description: "register account" })
     async register(
         @Arg("data") { email, firstName, lastName, password }: RegisterInput
     ): Promise<User> {

@@ -1,3 +1,4 @@
+import { User } from "./../entity/User";
 import { Request, Response } from "express";
 
 export interface MyContext {
@@ -5,6 +6,7 @@ export interface MyContext {
         session: {
             token?: any;
         };
+        user: User;
     };
     res: Response;
 }

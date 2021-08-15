@@ -1,4 +1,3 @@
-import { ConfirmUserResolver } from "./modules/user/ConfirmUser";
 require("dotenv").config();
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
@@ -12,20 +11,11 @@ import { createConnection } from "typeorm";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import { RegisterResolver } from "./modules/user/Register";
-import { LoginResolver } from "./modules/user/Login";
-import { MeResolver } from "./modules/user/Me";
-
 const main = async () => {
     await createConnection();
 
     const schema = await buildSchema({
-        resolvers: [
-            MeResolver,
-            RegisterResolver,
-            LoginResolver,
-            ConfirmUserResolver,
-        ],
+        resolvers: [__dirname + "/modules/**/*.ts"],
     });
 
     const app = Express();

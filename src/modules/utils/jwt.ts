@@ -21,5 +21,6 @@ export const verifyJWT = async (token: string) => {
 
     if (payload === null) return null;
 
-    return true;
+    // @ts-ignore
+    return payload.userId;
 };

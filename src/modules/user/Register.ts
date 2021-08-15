@@ -1,18 +1,13 @@
-import { isAuth } from "./../middleware/isAuth";
-import { Arg, Mutation, Query, Resolver, UseMiddleware } from "type-graphql";
+import { Arg, Mutation, Resolver } from "type-graphql";
 import argon2 from "argon2";
 
 import { User } from "../../entity/User";
 import { RegisterInput } from "./register/RegisterInput";
+import { sendEmail } from "../utils/sendEmail";
+import { createConfirmationUrl } from "../utils/createConfirmationUrl";
 
 @Resolver()
 export class RegisterResolver {
-    @UseMiddleware(isAuth)
-    @Query(() => String)
-    async hello() {
-        return "Hello World!";
-    }
-
     @Mutation(() => User, { description: "register an account" })
     async register(
         @Arg("data") { email, firstName, lastName, password }: RegisterInput
@@ -25,6 +20,8 @@ export class RegisterResolver {
             email,
             password: hashedPassword,
         }).save();
+
+        await sendEmail(email, await createConfirmationUrl(user.id));
 
         return user;
     }

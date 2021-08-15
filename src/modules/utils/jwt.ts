@@ -1,4 +1,4 @@
-import { User } from "./../entity/User";
+import { User } from "../../entity/User";
 import { sign, verify } from "jsonwebtoken";
 
 export let ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET!;

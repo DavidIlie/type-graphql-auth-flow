@@ -1,3 +1,4 @@
+import { ConfirmUserResolver } from "./modules/user/ConfirmUser";
 require("dotenv").config();
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
@@ -17,8 +18,14 @@ import { MeResolver } from "./modules/user/Me";
 
 const main = async () => {
     await createConnection();
+
     const schema = await buildSchema({
-        resolvers: [MeResolver, RegisterResolver, LoginResolver],
+        resolvers: [
+            MeResolver,
+            RegisterResolver,
+            LoginResolver,
+            ConfirmUserResolver,
+        ],
     });
 
     const app = Express();

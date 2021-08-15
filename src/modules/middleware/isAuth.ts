@@ -1,4 +1,4 @@
-import { verifyJWT } from "./../../lib/auth";
+import { verifyJWT } from "../utils/jwt";
 import { MyContext } from "src/types/MyContext";
 import { MiddlewareFn } from "type-graphql";
 

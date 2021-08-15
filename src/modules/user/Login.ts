@@ -1,5 +1,5 @@
 import { LoginInput } from "./login/LoginInput";
-import { createAccessToken } from "./../../lib/auth";
+import { createAccessToken } from "../utils/jwt";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import argon2 from "argon2";
 
@@ -19,13 +19,17 @@ export class LoginResolver {
         const user = await User.findOne({ where: { email } });
 
         if (!user) {
-            return null;
+            throw new Error("not authenticated");
         }
 
         const valid = await argon2.verify(user.password, password);
 
         if (!valid) {
-            return null;
+            throw new Error("not authenticated");
+        }
+
+        if (!user.confirmed) {
+            throw new Error("email not confirmed");
         }
 
         const accessToken = createAccessToken(user);

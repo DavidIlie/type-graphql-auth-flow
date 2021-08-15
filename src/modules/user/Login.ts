@@ -1,3 +1,4 @@
+import { LoginInput } from "./login/LoginInput";
 import { createAccessToken } from "./../../lib/auth";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import argon2 from "argon2";
@@ -12,8 +13,7 @@ export class LoginResolver {
         nullable: true,
     })
     async login(
-        @Arg("email") email: string,
-        @Arg("password") password: string,
+        @Arg("data") { email, password }: LoginInput,
         @Ctx() ctx: MyContext
     ): Promise<User | null> {
         const user = await User.findOne({ where: { email } });

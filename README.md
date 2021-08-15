@@ -16,6 +16,14 @@ To run this project, you will need to add the following environment variables to
 
 `ACCESS_TOKEN_SECRET`
 
+`GMAIL_EMAIL`
+
+`GMAIL_ASSWORD`
+
+## Requirements
+
+You need to have MongoDB and Redis setup and configured accordingly.
+
 ## Acknowledgements
 
 -   [Ben Awad's type-grahql series](https://www.youtube.com/watch?v=8yZImm2A1KE&list=PLN3n1USn4xlma1bBu3Tloe4NyYn9Ko8Gs&index=2)
